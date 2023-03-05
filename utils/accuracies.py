@@ -33,7 +33,7 @@ def approx_train_acc_and_loss(model, train_data : np.ndarray, train_labels : np.
     Returns:
         np.float64: simple accuracy
     """
-    idxs = np.random.choice(len(train_data), 4000, replace=False)
+    idxs = np.random.choice(len(train_data), 100, replace=False)
     x = torch.from_numpy(train_data[idxs].astype(np.float32))
     y = torch.from_numpy(train_labels[idxs].astype(np.int))
     logits = model(x)
