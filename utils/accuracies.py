@@ -34,8 +34,10 @@ def approx_train_acc_and_loss(model, train_data : np.ndarray, train_labels : np.
         np.float64: simple accuracy
     """
     idxs = np.random.choice(len(train_data), 100, replace=False)
-    x = torch.from_numpy(train_data[idxs].astype(np.float32))
-    y = torch.from_numpy(train_labels[idxs].astype(np.int))
+    # x = torch.from_numpy(train_data[idxs].astype(np.float32))
+    x = train_data[idxs]
+    # y = torch.from_numpy(train_labels[idxs].astype(np.int))
+    y = train_labels[idxs]
     logits = model(x)
     loss = F.cross_entropy(logits, y)
     y_pred = torch.max(logits, 1)[1]
@@ -55,9 +57,11 @@ def dev_acc_and_loss(model, dev_data : np.ndarray, dev_labels : np.ndarray) -> n
     Returns:
         np.float64: simple validation accuracy
     """
-    x = torch.from_numpy(dev_data.astype(np.float32))
-    y = torch.from_numpy(dev_labels.astype(np.int))
+    # x = torch.from_numpy(dev_data.astype(np.float32))
+    x = dev_data
+    # y = torch.from_numpy(dev_labels.astype(np.int))
+    y = dev_labels
     logits = model(x)
     loss = F.cross_entropy(logits, y)
     y_pred = torch.max(logits, 1)[1]
-    return accuracy(dev_labels, y_pred.numpy()), loss.item()
+    return accuracy(dev_labels, y_pred), loss.item()
